@@ -1,0 +1,23 @@
+﻿name: ci
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile hook scripts
+        run: python -m py_compile hooks/scripts/*.py
+      - name: Validate JSON files
+        run: |
+          for f in .claude-plugin/plugin.json hooks/hooks.json skills/worklaws/templates/*.json; do
+            python -m json.tool "$f" > /dev/null || { echo "Invalid JSON: $f"; exit 1; }
+          done
+      - name: Hook tests
+        run: python -m unittest discover -s tests -v
