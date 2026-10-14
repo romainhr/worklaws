@@ -54,6 +54,23 @@ class ActionControlTest(unittest.TestCase):
         self.assertEqual(rows[-1]["level"], "write")
 
 
+class OutcomeTest(unittest.TestCase):
+    def rows(self, d):
+        with open(os.path.join(d, ".claude", "state", "log.jsonl"), encoding="utf-8") as f:
+            return [json.loads(l) for l in f]
+
+    def test_outcome_recorded_only_for_asked_actions(self):
+        with tempfile.TemporaryDirectory() as d:
+            ask = {"session_id": "t", "tool_use_id": "u1", "tool_name": "Bash", "tool_input": {"command": "git push"}}
+            run("action_control.py", ask, d)
+            env = {**os.environ, "CLAUDE_PROJECT_DIR": d}
+            for uid, arg in [("u1", "executed"), ("u2", "executed")]:
+                subprocess.run([sys.executable, os.path.join(SCRIPTS, "outcome.py"), arg], input=json.dumps(
+                    {"session_id": "t", "tool_use_id": uid, "tool_name": "Bash"}), text=True, env=env, check=True)
+            outcomes = [r for r in self.rows(d) if r["decision"] == "outcome"]
+            self.assertEqual([(r["tool_use_id"], r["outcome"]) for r in outcomes], [("u1", "executed")])
+
+
 class SessionStartTest(unittest.TestCase):
     def test_suggests_adoption_without_config(self):
         with tempfile.TemporaryDirectory() as d:

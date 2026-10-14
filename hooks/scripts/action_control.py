@@ -44,11 +44,12 @@ def classify(tool, tool_input):
     return "other", None
 
 def log(e, tool, level, reason, decision):
+    """Appends one event; "tool_use_id" lets outcome.py link the result of an "ask"."""
     try:
         d = path(e, "state"); os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "log.jsonl"), "a", encoding="utf-8") as f:
             f.write(json.dumps({"ts": datetime.datetime.now().isoformat(timespec="seconds"), "session_id": e.get("session_id"),
-                                "tool": tool, "level": level, "reason": reason, "decision": decision}, ensure_ascii=False) + "\n")
+                                "tool_use_id": e.get("tool_use_id"), "tool": tool, "level": level, "reason": reason, "decision": decision}, ensure_ascii=False) + "\n")
     except Exception as ex:
         log_failure(e, "PreToolUse", repr(ex))
 

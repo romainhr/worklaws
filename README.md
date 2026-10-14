@@ -60,7 +60,7 @@ agents/
   researcher.md              [W] research and blind verification steps
 hooks/
   hooks.json                 SessionStart · UserPromptSubmit (new request) · PreToolUse (action control)
-                             · PostToolUse(Edit|Write) · Stop · SessionEnd
+                             · PostToolUse(Edit|Write, outcome) · PostToolUseFailure · Stop · SessionEnd
   scripts/*.py               Python 3 standard library only
 ```
 
@@ -96,10 +96,10 @@ For each project, run `/recipe-adoption`, which creates `.claude/worklaws.json` 
 
 ## Pending / assumptions to verify before serious use
 
-- [ ] Confirm in the hooks documentation the `CLAUDE_PLUGIN_ROOT` and `CLAUDE_PROJECT_DIR` variables and the `session_id` field in the Stop and SessionEnd inputs.
+- [x] `CLAUDE_PLUGIN_ROOT`, `CLAUDE_PROJECT_DIR` and `session_id` (common input field) confirmed in the hooks docs. Still unconfirmed: the exact `Stop`/`SessionEnd` input schema.
 - [ ] Set up telemetry: `CLAUDE_CODE_ENABLE_TELEMETRY=1` + an OTel logs exporter + an adapter that produces the normalized JSONL (requires an approved tool). It is still unconfirmed how events are grouped by session.
 - [ ] Confirm that the tracker is Beads (`bd`). If it is not, change the commands in the recipes.
-- [ ] AI audit: today the log records when confirmation was requested, but not whether it was approved or rejected. That data still needs to be added, for example with the `PermissionDenied` hook or a record in `PostToolUse`.
+- [x] AI audit: `outcome.py` (PostToolUse/PostToolUseFailure) records `executed`/`failed` for every action T1 asked about; a rejection is inferred from an `ask` with no outcome. Limitation: a rejection cannot be told apart from an interrupted session.
 - [ ] Adjust the `action_control.py` patterns to each team's real commands. They are heuristic.
 - [ ] Launching in parallel with `claude -p` consumes tokens separately. Review the cost in the audit.
 - [ ] In corporate environments: the plugin must coexist with the hooks installed through your organization's managed settings, and using it may require approval from your governance/security team.

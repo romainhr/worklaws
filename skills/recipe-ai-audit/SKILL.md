@@ -13,7 +13,7 @@ argument-hint: "[period, e.g. 30d] [repo paths]"
 2. **[W] Collect evidence in parallel**, one subagent per repo. **Use only harness artifacts**; do not read transcripts (their format is not documented).
    - `.claude/sessions/*.md`: tasks, decisions and usage table.
    - `.claude/retro/*.md`.
-   - `.claude/state/log.jsonl`: actions and approvals.
+   - `.claude/state/log.jsonl`: actions and approvals. Each `ask` row shares a `tool_use_id` with an `outcome` row (`executed` or `failed`) when the user approved. An `ask` with no outcome row was rejected or interrupted (inferred, not recorded directly).
    - `.claude/state/failed-hooks.log` and `.claude/state/incomplete-closes.log`.
    - `git log` and reverts for the period.
    - Telemetry, if it exists.
