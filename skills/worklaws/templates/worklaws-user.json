@@ -1,0 +1,8 @@
+{
+  "vaults": {
+    "personal": "~/Vaults/personal",
+    "work": "~/Vaults/work"
+  },
+  "default_tracker": { "repo": "beads", "no_git": "backlog-md" },
+  "default_remote": { "personal": "github", "work": "azure-devops" }
+}

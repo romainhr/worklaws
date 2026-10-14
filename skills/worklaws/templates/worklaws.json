@@ -1,0 +1,27 @@
+{
+  "harness_version": "0.3.1",
+  "profiles": [
+    {
+      "profile": "web",
+      "paths": [
+        "app/**"
+      ]
+    },
+    {
+      "profile": "bi",
+      "paths": [
+        "analytics/**"
+      ]
+    }
+  ],
+  "tracker": "beads",
+  "remote": "github",
+  "vault": "~/Vaults/personal/projects/<project>",
+  "commands": {
+    "test": "npm test -- --silent",
+    "lint": "npm run lint --silent",
+    "build": "npm run build"
+  },
+  "tests_on_every_edit": false,
+  "managed_by_organization": []
+}

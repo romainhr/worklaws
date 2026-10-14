@@ -1,0 +1,8 @@
+{
+  "name": "worklaws-plugin",
+  "version": "0.3.1",
+  "description": "Claude Code work runbooks for any role: an intent router, 23 recipes in 8 families (think, understand, build, deliver, operate, rhythm, people, improve the system), plus cross-cutting steps for workspace preparation, action control, mid-session requests, and session close with usage report and retro.",
+  "author": {
+    "name": "Romain"
+  }
+}
