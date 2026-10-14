@@ -1,0 +1,12 @@
+{
+  "id": "validation-review", "flow": "validation", "fixture": "orders-api",
+  "prompt": "Review orders.py for correctness and security problems. Report each problem with its location and severity. Do not modify any file.",
+  "plugin_prompt": "/worklaws-plugin:recipe-validation Review orders.py for correctness and security problems. Report each problem with its location and severity. Do not modify any file.",
+  "rubric": [
+    "Finds the SQL injection in find_orders (string concatenation of `customer`)",
+    "Finds that average() raises ZeroDivisionError on an empty list",
+    "Finds that refund() has no validation (negative amount, amount > total, missing order)",
+    "Does not report non-issues as high severity (false positives are penalised)",
+    "Each finding cites a concrete location and gives a fix or recommendation"
+  ]
+}

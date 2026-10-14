@@ -1,0 +1,12 @@
+{
+  "id": "new-feature-design", "flow": "new-feature", "fixture": "orders-api",
+  "prompt": "Design (no code) a feature to let customers cancel an order within 30 minutes of placing it. Produce a short spec: scope, acceptance criteria, risks, open questions. Do not modify any file.",
+  "plugin_prompt": "/worklaws-plugin:recipe-new-feature Design (no code) a feature to let customers cancel an order within 30 minutes of placing it. Produce a short spec: scope, acceptance criteria, risks, open questions. Do not modify any file.",
+  "rubric": [
+    "States scope and explicit non-goals",
+    "Acceptance criteria are testable (observable conditions, not vague)",
+    "Identifies risks grounded in the existing code (e.g. refund() has no validation, no order status or timestamp column)",
+    "Lists genuine open questions instead of silently assuming (payment state, partial shipment)",
+    "Contains no implementation code and does not modify files"
+  ]
+}
