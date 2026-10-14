@@ -1,4 +1,4 @@
-# Contributing to worklaws
+﻿# Contributing to worklaws
 
 Thanks for your interest. This repository is a Claude Code plugin: skills (recipes), agents, hooks and templates. Contributions are welcome through issues and pull requests.
 
@@ -42,6 +42,10 @@ The CI also checks that `.claude-plugin/plugin.json`, `hooks/hooks.json` and `sk
 ## Secrets and private data
 
 Do not commit credentials, tokens, `.env` files, keys, or any customer, company or production data. This is a public repository and the history is public.
+
+## Code of conduct
+
+By participating you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Pull requests
 
